@@ -16,6 +16,11 @@ h1 {
     margin-top: 20px;
 }
 
+#qr-code {
+    height: 100px;
+    width: 100px;
+}
+
 video {
     width: 100%;
 }
