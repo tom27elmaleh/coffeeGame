@@ -28,7 +28,7 @@ h1 {
 
 label {
     display: block;
-    margin: 10px 0;
+    margin: 10px 70px;
     font-weight: bold;
 }
 
@@ -55,3 +55,8 @@ button {
 button:hover {
     background-color: #351c0c;
 }
+
+#condition {
+    display: flex;
+    align-items: center;
+ }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire de Téléphone</title>
+    <title>Formulaire</title>
     <link rel="stylesheet" href="style/form.css">
 </head>
 <body>
@@ -19,6 +19,12 @@
                 <input type="email" id="email" required>
                 <label for="number">Numéro de téléphone:</label>
                 <input type="tel" id="number" required>
+                <label for="society">Nom de la société</label>
+                <input type="text" id="society" required>
+                <div id="condition">
+                    <input type="checkbox" id="rgpdCheckbox" name="rgpdCheckbox" required>
+                    <label id="rgpd" for="rgpdCheckbox">J'accepte les <a href="/lien-vers-conditions" target="_blank">conditions RGPD</a></label>
+                </div>
                 <button type="submit">Lancer la cafetière</button>
             </form>
         </div>

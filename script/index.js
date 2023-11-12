@@ -9,13 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const video = document.getElementById("video");
+  const qrCode = document.getElementById("qr-code");
   function checkIsPlaying() {
     // Effectuer une requête GET à la route /checkIsPlaying
-    fetch("http://localhost:3000/wins/checkIsPlaying")
+    fetch("https://coffee-game-back.vercel.app/wins/checkIsPlaying")
       .then((response) => response.json())
       .then((data) => {
         const isPlaying = data.isPlaying;
         if (isPlaying === true) {
+          qrCode.style.display = "none";
           video.play();
         }
       })
@@ -25,11 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   video.addEventListener("ended", function () {
-    // L'événement "ended" est déclenché lorsque la vidéo atteint la fin.
-    // Pour remettre automatiquement la vidéo au début sans redémarrer la lecture :
-    video.currentTime = 0; // Remettez la vidéo au début
+    video.currentTime = 0;
+    qrCode.style.display = "block";
   });
 
-  // Appeler checkIsPlaying toutes les 1 seconde
-  setInterval(checkIsPlaying, 1000);
+  setInterval(checkIsPlaying, 1500);
 });

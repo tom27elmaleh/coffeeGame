@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   const playerForm = document.getElementById("player-form");
-  const videoPlayer = document.getElementById("video");
 
   playerForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -11,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const number = document.getElementById("number").value;
 
     if (firstName && lastName && email && number) {
-      fetch("http://localhost:3000/users/add", {
+      fetch("https://coffee-game-back.vercel.app/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -23,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
         .then((response) => response.json())
         .then((data) => {
-          fetch("http://localhost:3000/wins/", {
+          fetch("https://coffee-game-back.vercel.app/wins/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
