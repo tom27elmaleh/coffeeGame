@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const number = document.getElementById("number").value;
 
     if (firstName && lastName && email && number) {
-      fetch("https://coffee-game-back.vercel.app/add", {
+      fetch("https://coffee-game-back.vercel.app/users/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
