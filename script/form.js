@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const socket = new WebSocket("ws://localhost:3001");
+  const socket = new WebSocket("ws:https://coffee-game-back.vercel.app");
 
   // Écoute des événements de connexion
   socket.addEventListener("open", (event) => {
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const number = document.getElementById("number").value;
 
     if (firstName && lastName && email && number) {
-      fetch("http://localhost:3000/users/add", {
+      fetch("https://coffee-game-back.vercel.app/users/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
         .then((response) => response.json())
         .then((data) => {
-          fetch("http://localhost:3000/wins/", {
+          fetch("https://coffee-game-back.vercel.app/wins/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
