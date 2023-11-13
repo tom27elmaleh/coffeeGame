@@ -1,35 +1,43 @@
-// index.js
-
 document.addEventListener("DOMContentLoaded", function () {
-  const autoriserButton = document.getElementById("autoriserLectureAuto");
-
-  // Gestionnaire d'événement pour le bouton
-  autoriserButton.addEventListener("click", function () {
-    autoriserButton.style.display = "none"; // Cache le bouton après l'autorisation
-  });
+  const socket = new WebSocket("ws://localhost:3001");
+  console.log("Tentative de connexion au serveur WebSocket");
 
   const video = document.getElementById("video");
   const qrCode = document.getElementById("qr-code");
-  function checkIsPlaying() {
-    // Effectuer une requête GET à la route /checkIsPlaying
-    fetch("https://coffee-game-back.vercel.app/wins/checkIsPlaying")
-      .then((response) => response.json())
-      .then((data) => {
-        const isPlaying = data.isPlaying;
-        if (isPlaying === true) {
-          qrCode.style.display = "none";
-          video.play();
-        }
-      })
-      .catch((error) => {
-        console.error("Une erreur s'est produite :", error);
-      });
-  }
+  const autoriserButton = document.getElementById("autoriserLectureAuto");
+
+  autoriserButton.addEventListener("click", function () {
+    autoriserButton.style.display = "none";
+  });
+
+  // Écoute des événements de connexion
+  socket.addEventListener("open", (event) => {
+    console.log("Connecté au serveur WebSocket");
+  });
+
+  // Écoute des événements de fermeture
+  socket.addEventListener("close", (event) => {
+    console.log("Connexion WebSocket fermée");
+  });
+
+  // Écoute des événements d'erreur
+  socket.addEventListener("error", (event) => {
+    console.error("Erreur WebSocket:", event);
+  });
+
+  // Écoute des messages du serveur WebSocket
+  socket.addEventListener("message", (event) => {
+    console.log("Message du serveur WebSocket:", event.data);
+
+    if (event.data === "formOK") {
+      video.play();
+      qrCode.style.display = "none";
+      console.log("Formulaire validé");
+    }
+  });
 
   video.addEventListener("ended", function () {
     video.currentTime = 0;
     qrCode.style.display = "block";
   });
-
-  setInterval(checkIsPlaying, 1500);
 });

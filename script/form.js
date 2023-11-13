@@ -1,7 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const playerForm = document.getElementById("player-form");
+  const socket = new WebSocket("ws://localhost:3001");
 
-  playerForm.addEventListener("submit", function (event) {
+  // Écoute des événements de connexion
+  socket.addEventListener("open", (event) => {
+    console.log("Connecté au serveur WebSocket");
+  });
+
+  // Écoute des événements de fermeture
+  socket.addEventListener("close", (event) => {
+    console.log("Connexion WebSocket fermée");
+  });
+
+  // Écoute des événements d'erreur
+  socket.addEventListener("error", (event) => {
+    console.error("Erreur WebSocket:", event);
+  });
+
+  // Écoute des événements de formulaire validé
+  document.getElementById("player-form").addEventListener("submit", (event) => {
     event.preventDefault();
 
     const firstName = document.getElementById("first-name").value;
@@ -10,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const number = document.getElementById("number").value;
 
     if (firstName && lastName && email && number) {
-      fetch("https://coffee-game-back.vercel.app/users/add", {
+      fetch("http://localhost:3000/users/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -22,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
         .then((response) => response.json())
         .then((data) => {
-          fetch("https://coffee-game-back.vercel.app/wins/", {
+          fetch("http://localhost:3000/wins/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -35,5 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
+
+    // Envoi d'un message au serveur WebSocket
+    socket.send("formOK");
+    console.log("submit");
   });
 });
