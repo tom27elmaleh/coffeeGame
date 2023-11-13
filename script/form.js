@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const socket = new WebSocket("ws:https://coffee-game-back.vercel.app");
+  const socket = new WebSocket("wss://coffee-game-back.vercel.app");
 
   // Écoute des événements de connexion
   socket.addEventListener("open", (event) => {
